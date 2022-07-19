@@ -1,7 +1,7 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/settings';
+import SettingsIcon from '@mui/icons-material/Settings';
 
-export default function Home() {
+export default function Visualize() {
   return (
     <Stack
       direction="row"
@@ -13,7 +13,7 @@ export default function Home() {
     >
       {/* left */}
       <Typography variant="h5" fontWeight="bold">
-        refletir
+        visualizar
       </Typography>
     </Stack>
   );

@@ -7,16 +7,16 @@ import {
   useTheme,
   useMediaQuery
 } from '@mui/material';
-import HomeIcon from '@mui/icons-material/home';
-import AllInclusiveIcon from '@mui/icons-material/allinclusive';
-import HistoryTwoToneIcon from '@mui/icons-material/historytwotone';
+import HomeIcon from '@mui/icons-material/Home';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import HistoryTwoToneIcon from '@mui/icons-material/HistoryTwoTone';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const tabs = {
-  home: <HomeIcon />,
-  act: <AllInclusiveIcon />,
-  reflect: <HistoryTwoToneIcon />
+  home: { title: 'refletir', icon: <HomeIcon /> },
+  act: { title: 'agir', icon: <AllInclusiveIcon /> },
+  visualize: { title: 'visualizar', icon: <HistoryTwoToneIcon /> }
 };
 
 const tabNames = Object.keys(tabs);
@@ -93,14 +93,18 @@ export default function Layout({ children, ...props }: PropsWithChildren) {
           onChange={(_, tabIndex) => router.push(`/${tabNames[tabIndex]}`)}
           sx={{
             flexDirection: { sm: 'column' },
-            position: 'absolute',
+            position: 'fixed',
             bottom: '0',
             width: { xs: '100%', sm: tabsSize.sm },
             height: { xs: tabsSize.xs, sm: '100%' }
           }}
         >
-          {Object.entries(tabs).map(([tab, icon]) => (
-            <BottomNavigationAction key={tab} icon={icon} showLabel={false} />
+          {Object.entries(tabs).map(([tab, tabInfo]) => (
+            <BottomNavigationAction
+              key={tab}
+              icon={tabInfo.icon}
+              showLabel={false}
+            />
           ))}
         </BottomNavigation>
       </Slide>

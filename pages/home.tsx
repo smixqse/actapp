@@ -6,7 +6,7 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/settings';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useState, useEffect } from 'react';
 import { SwitchTransition, TransitionGroup } from 'react-transition-group';
 import { HomeActionButtons } from '../components/home/HomeActionButtons';

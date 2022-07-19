@@ -1,5 +1,5 @@
 import { Box, ButtonGroup, Fab } from '@mui/material';
-import CreateIcon from '@mui/icons-material/create';
+import CreateIcon from '@mui/icons-material/Create';
 import { useRouter } from 'next/router';
 
 export function HomeActionButtons() {
