@@ -1,60 +1,120 @@
-import { PropsWithChildren } from 'react';
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  ThemeProvider,
+  Slide,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
+import HomeIcon from '@mui/icons-material/home';
+import AllInclusiveIcon from '@mui/icons-material/allinclusive';
+import HistoryTwoToneIcon from '@mui/icons-material/historytwotone';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
+const tabs = {
+  home: <HomeIcon />,
+  act: <AllInclusiveIcon />,
+  reflect: <HistoryTwoToneIcon />
+};
+
+const tabNames = Object.keys(tabs);
+
+const tabsSize = { xs: '60px', sm: '80px' };
 
 export default function Layout({ children, ...props }: PropsWithChildren) {
+  const router = useRouter();
+  const theme = useTheme();
+  const sm = useMediaQuery(theme.breakpoints.up('sm'));
+
+  function getTab(route: string) {
+    return tabNames.indexOf(route.slice(1));
+  }
+
+  function isThisATab(route: string) {
+    const tabInTabNames = getTab(route);
+    return tabInTabNames !== -1;
+  }
+
+  const [tab, setTab] = useState(getTab(router.pathname));
+  const [shouldShowTabs, setShouldShowTabs] = useState(
+    isThisATab(router.pathname)
+  );
+
+  useEffect(() => {
+    setShouldShowTabs(isThisATab(router.pathname));
+    setTab(getTab(router.pathname));
+  }, [router, location]);
+
   return (
-    <div id="main">
-      <div id="page" className="flex flex-grow">
-        {children}
-      </div>
-      <div id="tabs" className="btm-nav">
-        <div className="h-10">
-          <svg
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M5 12H3l9-9 9 9h-2"></path>
-            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path>
-            <path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6"></path>
-          </svg>
-        </div>
-        <div className="h-10">
-          <svg
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.828 9.172a4 4 0 1 0 0 5.656A9.998 9.998 0 0 0 12 12a9.999 9.999 0 0 1 2.172-2.828 4 4 0 1 1 0 5.656A9.998 9.998 0 0 1 12 12a9.999 9.999 0 0 0-2.172-2.828"></path>
-          </svg>
-        </div>
-        <div className="h-10">
-          <svg
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9 4.55a8.031 8.031 0 1 1 6 14.9"></path>
-            <path d="M5.63 7.156v.01"></path>
-            <path d="M4.06 11v.01"></path>
-            <path d="M4.63 15.102v.01"></path>
-            <path d="M7.16 18.367v.01"></path>
-            <path d="M11 19.938v.01"></path>
-            <path d="M15 15v5h5"></path>
-          </svg>
-        </div>
-      </div>
-    </div>
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: {
+            xs: 'column',
+            sm: 'row'
+          },
+          height: '100%',
+          overflow: 'hidden'
+          //filter: 'blur(3px)'
+        }}
+      >
+        <Box
+          sx={{
+            flexGrow: 1,
+            position: 'relative',
+            overflowY: 'auto',
+            overflowX: 'hidden'
+          }}
+        >
+          <Box sx={{ position: 'absolute', width: '100%', height: '100%' }}>
+            {children}
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            width: { xs: '100%', sm: tabsSize.sm },
+            height: { xs: tabsSize.xs, sm: '100%' },
+            order: { sm: -1 }
+          }}
+          display={shouldShowTabs ? 'flex' : 'none'}
+        ></Box>
+      </Box>
+      <Slide
+        direction={sm ? 'right' : 'up'}
+        appear={false}
+        in={shouldShowTabs}
+        mountOnEnter
+      >
+        <BottomNavigation
+          value={tab}
+          onChange={(_, tabIndex) => router.push(`/${tabNames[tabIndex]}`)}
+          sx={{
+            flexDirection: { sm: 'column' },
+            position: 'absolute',
+            bottom: '0',
+            width: { xs: '100%', sm: tabsSize.sm },
+            height: { xs: tabsSize.xs, sm: '100%' }
+          }}
+        >
+          {Object.entries(tabs).map(([tab, icon]) => (
+            <BottomNavigationAction key={tab} icon={icon} showLabel={false} />
+          ))}
+        </BottomNavigation>
+      </Slide>
+      <Box
+        sx={{
+          position: 'fixed',
+          height: '100%',
+          width: '100%',
+          backgroundColor: 'black',
+          opacity: '50%'
+        }}
+      >
+        a
+      </Box>
+    </>
   );
 }
