@@ -1,7 +1,7 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/settings';
 
-export default function Home() {
+export default function Act() {
   return (
     <Stack
       direction="row"

@@ -9,7 +9,7 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useState, useEffect } from 'react';
 import { SwitchTransition, TransitionGroup } from 'react-transition-group';
-import { HomeActionButtons } from '../components/home/HomeActionButtons';
+import { HomeActionButtons } from '../components/tabs/home/HomeActionButtons';
 import Link from 'next/link';
 
 export default function Home() {
@@ -76,3 +76,7 @@ export default function Home() {
     </>
   );
 }
+
+Home.tabInfo = {
+  
+};

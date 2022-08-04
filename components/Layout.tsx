@@ -5,7 +5,9 @@ import {
   ThemeProvider,
   Slide,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Stack,
+  Typography
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
@@ -69,8 +71,28 @@ export default function Layout({ children, ...props }: PropsWithChildren) {
             overflowX: 'hidden'
           }}
         >
-          <Box sx={{ position: 'absolute', width: '100%', height: '100%' }}>
-            {children}
+          <Box
+            sx={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              marginX: '10px'
+            }}
+          >
+            <Stack
+              direction="row"
+              justifyContent="left"
+              marginX={'2rem'}
+              marginY={'2rem'}
+              alignItems="center"
+              minHeight={'40px'}
+            >
+              {/* left */}
+              <Typography variant="h5" fontWeight="bold">
+                visualizar
+              </Typography>
+            </Stack>
+            <Box>{children}</Box>
           </Box>
         </Box>
         <Box
