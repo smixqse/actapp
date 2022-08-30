@@ -1,5 +1,5 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/settings';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function Act() {
   return (
