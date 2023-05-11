@@ -1,4 +1,5 @@
-this is an unfinished project built with NextJS, React and MaterialUI
+this is an unfinished project built with NextJS, React and MaterialUI.
+it was intended to be a way of saving thoughts, feelings and actions for self-improvement.
 
 ---
 
